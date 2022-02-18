@@ -1,12 +1,21 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components/native';
 
-import {Text, View} from 'react-native';
+import { StatusBar } from 'react-native';
+
+import theme from './src/global/styles/theme';
+
+import Dashboard from './src/screens/Dashboard';
 
 const App = () => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Hello world !</Text>
-    </View>
+    <ThemeProvider theme={theme} >
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={theme.colors.primary}
+         />
+        <Dashboard/>
+    </ThemeProvider>
   );
 };
 
