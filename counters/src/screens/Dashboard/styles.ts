@@ -1,22 +1,35 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
+interface CardProps {
+  active: string;
+}
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
-
 `;
 
-export const Header = styled.View`
+export const Card = styled.TouchableOpacity<CardProps>`
   width: 100%;
-  height: ${RFPercentage(14)}px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: 8px 16px;
-  justify-content: flex-end;
+  height: ${RFPercentage(32)}px;
+  background-color: ${({ theme, active }) => active ? theme.colors.card_background : theme.colors.shape };
+  margin-bottom: ${RFValue(16)}px;
+  elevation: 1;
+  border-radius: 8px;
+  padding: 16px;
+  /* margin-top: ${RFValue(32)}px; */
 `;
 
-export const Title = styled.Text`
+export const ContentFlat = styled.SafeAreaView`
+  flex: 1;
+  padding: 0px 16px;
+  margin-top: 32px;
+  /* background-color: blue; */
+`;
+
+export const TitleCard = styled.Text<CardProps>`
+  font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${RFValue(24)}px;
-  color: ${({ theme }) => theme.colors.shape};
-  font-family: ${({ theme }) => theme.fonts.bold};
+  color: ${({ theme, active }) => active ?  theme.colors.shape : theme.colors.black  }
 `;
