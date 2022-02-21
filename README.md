@@ -6,6 +6,7 @@ Application build react native onebrain technical challenge
 - **Typescript** as a development language facilitating the definition of types
 - **React-Navigation** for navigation between screens
 - **React-native-vector-icons** for part of icons
+- **React-native-async-storage/async-storage** for storing application states
 
 **Installing dependencies**
 
