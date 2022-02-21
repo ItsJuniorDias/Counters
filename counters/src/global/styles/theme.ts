@@ -6,6 +6,7 @@ export default {
     text: '#333333',
     card_background: '#404040',
     active_menu: '#ff9500',
+    success: '#12a454',
 
     background: '#F0F2F5',
     shape: '#FFFFFF',

@@ -31,5 +31,19 @@ export const ContentFlat = styled.SafeAreaView`
 export const TitleCard = styled.Text<CardProps>`
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${RFValue(24)}px;
-  color: ${({ theme, active }) => active ?  theme.colors.shape : theme.colors.black  }
+  color: ${({ theme, active }) => active ?  theme.colors.shape : theme.colors.black};
+`;
+
+export const ContentEmpty = styled.View`
+  height: ${RFPercentage(70)}px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+export const TitleEmpty = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  font-size: ${RFValue(24)}px;
+  color: ${({ theme }) => theme.colors.black};
+  margin-left: 16px;
 `;

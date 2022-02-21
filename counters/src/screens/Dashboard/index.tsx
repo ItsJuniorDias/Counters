@@ -1,35 +1,48 @@
-import React, {useState } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import React, { useState, useEffect, useCallback  } from 'react';
+import { FlatList } from 'react-native';
 
-import { Container, Card, ContentFlat, TitleCard } from './styles';
+import MaterialIcons  from 'react-native-vector-icons/MaterialIcons';
+
+import { useFocusEffect } from '@react-navigation/native';
+
+import {
+  Container,
+  Card,
+  ContentFlat,
+  TitleCard,
+  ContentEmpty,
+  TitleEmpty,
+} from './styles';
 
 import Header from '../../components/Header';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import theme from '../../global/styles/theme';
 
 const Dashboard = () => {
-  const [ activeId, setActiveId ] = useState(null);
+  const [ data, setData ] = useState([]);
 
-  const [ data, setData ] = useState([
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-      selected: false,
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-      selected: false,
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-      selected: false,
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d724',
-      title: 'Four Item',
-      selected: false,
-    },
-  ]);
+  useEffect(() => {
+     async function resetItem() {
+       await AsyncStorage.removeItem('@counter:create');
+     }
+
+     resetItem();
+  },[]);
+
+  useFocusEffect(useCallback(() => {
+    loadData();
+  }, []));
+
+
+  const loadData = async () => {
+    const dataAsync = await AsyncStorage.getItem('@counter:create');
+    const currentData = dataAsync ? JSON.parse(dataAsync!) : [];
+
+    console.log(currentData, 'CURRENT DATA');
+
+    setData(currentData);
+  };
+
 
   const Item = ({ title, onPress, selectedItem }) => (
     <Card onPress={onPress} active={selectedItem} >
@@ -38,9 +51,7 @@ const Dashboard = () => {
   );
 
   const renderItem = ({ item }) => {
-    const handleActive = (id) => {
-      console.log(id, 'ID');
-
+    const handleActive = async (id) => {
       const selectedData = data.map(item => {
         if (item.id === id && item.selected === false) {
           return {...item, selected: true};
@@ -53,8 +64,16 @@ const Dashboard = () => {
         return item;
       });
 
+      try {
+        const dataKey = '@counter:list_remove';
+        await AsyncStorage.setItem(dataKey, JSON.stringify(selectedData));
+
+
+      } catch (e) {
+        console.log(e);
+      }
+
       setData(selectedData);
-      console.log(selectedData);
     };
 
 
@@ -67,16 +86,24 @@ const Dashboard = () => {
     );
   };
 
+  const listEmpty = () => (
+    <ContentEmpty>
+      <MaterialIcons name="block" size={30} color={theme.colors.black} />
+      <TitleEmpty>The list is empty</TitleEmpty>
+    </ContentEmpty>
+  );
+
 
   return (
     <Container>
-      <Header />
+      <Header title="Counters" />
 
       <ContentFlat>
         <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={item => item.id}
+          ListEmptyComponent={() => listEmpty()}
         />
       </ContentFlat>
     </Container>

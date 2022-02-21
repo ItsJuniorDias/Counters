@@ -3,11 +3,15 @@ import { View } from 'react-native';
 
 import { Content, Title } from './styles';
 
-const Header = () => {
+interface HeaderProps {
+  title: string;
+}
+
+const Header = ({ title }: HeaderProps) => {
  return (
   <Content>
     <Title>
-      Counters
+      {title}
     </Title>
   </Content>
   );

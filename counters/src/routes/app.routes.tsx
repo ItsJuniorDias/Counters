@@ -32,7 +32,7 @@ export function AppRoutes() {
         name="List"
         component={Dashboard}
         options={{
-          tabBarIcon: (({ size, color}) =>
+          tabBarIcon: (({ color}) =>
             <MaterialIcons
               name="format-list-bulleted"
               size={30}
@@ -46,7 +46,7 @@ export function AppRoutes() {
         name="Config"
         component={ConfigScreen}
         options={{
-          tabBarIcon: (({ size, color}) =>
+          tabBarIcon: (({ color }) =>
             <MaterialCommunityIcons
               name="tools"
               size={30}
