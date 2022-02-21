@@ -1,7 +1,8 @@
 # Counters
 Application build react native onebrain technical challenge
 
-![counterEmpty-horz](https://user-images.githubusercontent.com/50254416/155011153-db25f988-35b9-4b35-b344-1d59db52398a.jpg)
+![counterEmpty-horz](https://user-images.githubusercontent.com/50254416/155011030-12bb4c6c-07ae-48c3-85f6-fc7285a1ab51.jpg)
+
 
 
 
