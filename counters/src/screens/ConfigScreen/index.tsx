@@ -14,7 +14,7 @@ const ConfigScreen = () => {
   const handleCreateCounter = async () => {
     setCounter(counter + 1);
 
-   const data = {
+   let data = {
       id: uuid.v4(),
       title: `Counter ${counter}`,
       selected: false,
@@ -29,6 +29,8 @@ const ConfigScreen = () => {
         ...currentData,
         data,
       ];
+
+      console.log(dataFormatted, 'DATA FORMATTED');
 
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
       Alert.alert('Counter created successfully!');

@@ -33,12 +33,31 @@ const Dashboard = () => {
     loadData();
   }, []));
 
+  const activeItem = (activeData: []) => {
+    console.log(activeData, 'ACTIVE DATA');
+
+    const changeItem = activeData[0].selected = true;
+
+    const dataFormatted = [
+      ...activeData,
+      changeItem,
+    ];
+
+    setData(dataFormatted);
+
+  };
+
 
   const loadData = async () => {
     const dataAsync = await AsyncStorage.getItem('@counter:create');
-    const currentData = dataAsync ? JSON.parse(dataAsync!) : [];
+    const currentData: [] = dataAsync ? JSON.parse(dataAsync!) : [];
 
     console.log(currentData, 'CURRENT DATA');
+
+    if ( currentData.length > 0) {
+      activeItem(currentData);
+    }
+
 
     setData(currentData);
   };
@@ -102,7 +121,7 @@ const Dashboard = () => {
         <FlatList
           data={data}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={() => listEmpty()}
         />
       </ContentFlat>
